@@ -1,0 +1,83 @@
+basePath: /api/aslan
+definitions:
+  service.ConvertVaraibleKVAndYamlActionType:
+    enum:
+    - toKV
+    - toYaml
+    type: string
+    x-enum-varnames:
+    - ConvertVaraibleKVAndYamlActionTypeToKV
+    - ConvertVaraibleKVAndYamlActionTypeToYaml
+  service.ConvertVaraibleKVAndYamlArgs:
+    properties:
+      action:
+        $ref: '#/definitions/service.ConvertVaraibleKVAndYamlActionType'
+      kvs:
+        items:
+          $ref: '#/definitions/types.ServiceVariableKV'
+        type: array
+      yaml:
+        type: string
+    type: object
+  types.ServiceVariableKV:
+    properties:
+      desc:
+        type: string
+      key:
+        type: string
+      options:
+        items:
+          type: string
+        type: array
+      type:
+        $ref: '#/definitions/types.ServiceVariableKVType'
+      value: {}
+    type: object
+  types.ServiceVariableKVType:
+    enum:
+    - bool
+    - string
+    - enum
+    - yaml
+    type: string
+    x-enum-varnames:
+    - ServiceVariableKVTypeBoolean
+    - ServiceVariableKVTypeString
+    - ServiceVariableKVTypeEnum
+    - ServiceVariableKVTypeYaml
+info:
+  contact:
+    email: contact@koderover.com
+  description: |-
+    The API doc is targeting for Zadig developers rather than Zadig users.
+    The majority of these APIs are not designed for public use, there is no guarantee on version compatibility.
+    Please reach out to contact@koderover.com before you decide to depend on these APIs directly.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Zadig aslan service REST APIs
+  version: "1.0"
+paths:
+  /service/services/variable/convert:
+    post:
+      consumes:
+      - application/json
+      description: convert varaible kv and yaml
+      parameters:
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.ConvertVaraibleKVAndYamlArgs'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.ConvertVaraibleKVAndYamlArgs'
+      summary: convert varaible kv and yaml
+      tags:
+      - service
+swagger: "2.0"
